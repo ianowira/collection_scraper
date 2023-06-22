@@ -1,10 +1,10 @@
 {
   "name": "web-scraper",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./build/app.js",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && node index.js"
+    "start": "tsc && node ./build/app.js"
   },
   "dependencies": {
     "axios": "^1.4.0",
