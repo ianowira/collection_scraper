@@ -1,10 +1,38 @@
 import cheerio from 'cheerio'
 import axios from 'axios'
 
-import {
-  GetProductResponse,
-  ProductResponseData
-} from './modules/types'
+type Product = {
+  id: number
+  title: string
+  body_html: string
+  vendor: string
+  product_type: string
+  created_at: string
+  handle: string
+  updated_at: string
+  published_at: string
+  template_suffix: string
+  published_scope: string
+  tags: string
+  varaints: object[]
+  options: object[]
+  images: object[]
+  image: object
+}
+
+type GetProductResponse = {
+  data: Product[]
+}
+
+type GetProductError = {
+  message?: string
+  error?: unknown
+}
+
+type ProductResponseData = {
+  data?: Product[]
+  errors?: GetProductError | unknown
+}
 
 class Scraper {
   url: URL | undefined
