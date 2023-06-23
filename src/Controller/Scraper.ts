@@ -20,17 +20,13 @@ type Product = {
   image: object
 }
 
-type GetProductResponse = {
-  data: Product[]
-}
-
 type GetProductError = {
   message?: string
   error?: unknown
 }
 
 type ProductResponseData = {
-  data?: Product[]
+  product?: Product
   errors?: GetProductError | unknown
 }
 
@@ -99,7 +95,7 @@ class Scraper {
   async getProduct(url: string): Promise<ProductResponseData> {
 
     try {
-      const { data } = await axios.request<GetProductResponse>({
+      const { data } = await axios.request<ProductResponseData>({
         method: 'GET',
         url: `${url}.json`,
         headers: {
@@ -145,10 +141,10 @@ class Scraper {
     for (let i = 0; i < products.length; i++) {
       const product_url = products[i];
 
-      const product = await this.getProduct(product_url)
+      const pr = await this.getProduct(product_url)
 
-      if (!product.errors) {
-        product_data.push(product)
+      if (!pr.errors && typeof pr.product !== 'undefined') {
+        product_data.push(pr.product)
       }
 
     }

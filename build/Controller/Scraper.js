@@ -28,7 +28,6 @@ class Scraper {
     getLinks(data) {
         const links = [];
         const $ = cheerio_1.default.load(data);
-        const self = this;
         $('.card a').each((index, element) => {
             const href = $(element).attr('href');
             const url = this.buildUrl(href);
@@ -99,13 +98,13 @@ class Scraper {
             console.log('Total pages => ', this.total_pages);
             for (let i = 0; i < products.length; i++) {
                 const product_url = products[i];
-                const product = yield this.getProduct(product_url);
-                if (!product.errors) {
-                    product_data.push(product);
+                const pr = yield this.getProduct(product_url);
+                if (!pr.errors && typeof pr.product !== 'undefined') {
+                    product_data.push(pr.product);
                 }
             }
             return product_data;
         });
     }
 }
-exports.default = Scraper;
+exports.default = new Scraper;
